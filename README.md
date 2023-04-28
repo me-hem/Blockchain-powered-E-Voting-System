@@ -7,7 +7,8 @@
 4. References
 
 ### Reference Repository
-This project is based on the E-Voting developed in (https://github.com/ramesh-adhikari/E-voting-system-using-blockchain-and-python) repository entitled "E-voting-system-using-blockchain-and-python" by Ramesh Adhikari.
+This project is based on the E-Voting system developed in (https://github.com/ramesh-adhikari/E-voting-system-using-blockchain-and-python) repository entitled "E-voting-system-using-blockchain-and-python" by Ramesh Adhikari.
+**Appreciate the significant contributions made by the "E-voting-system-using-blockchain-and-python" repository in advancing my understanding and practical implementation of blockchain technology in the context of e-voting systems.**
 
 This application aims to implement blockchain in an e-voting system, enabling voters to cast their votes using their unique voter IDs. The application ensures that each voter can only vote once, and the voted information is stored on the blockchain, making it immutable and permanent. Users interact with the application through a user-friendly web interface.
 
