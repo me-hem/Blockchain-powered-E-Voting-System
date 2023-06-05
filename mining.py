@@ -1,14 +1,17 @@
 import sys
 import requests as req
 import time
-from flask import redirect
 
 port = sys.argv[1]
-url = "http://127.0.0.1:"+port+"/mine"
+url = "http://127.0.0.1:" + port + "/mine"
 
-#Mining one block in every 10s containing approx 100 transactions.
-while True:
+print("Mining started ")
+count = 0
+while count < 3:
     time.sleep(10)
     res = req.get(url)
-    print(res.content)
+    print(res.content.decode('utf-8'))
+    if res.content.decode('utf-8') == "No transactions to mine":
+        count += 1
 
+print("Mining completed successfully")
