@@ -102,7 +102,7 @@ def index():
                            readable_time=timestamp_to_string,
                            political_parties = POLITICAL_PARTIES,
                            voting_time = Voting_Time,
-                           length = chain_length,
+                           length = chain_length-1,
                            average_time = average_time,
                            leading_party = leading_party,
                            mining_time = mining_time,
