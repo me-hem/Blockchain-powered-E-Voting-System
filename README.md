@@ -96,14 +96,10 @@ $ python3 app.py 5000
 ```
 The application should be up and running at [http://localhost:5000](http://localhost:5000).
 
-Now, run automation script simultaneously in different terminal sessions i.e.
-1. automated voting script
+Now, run automation script simultaneously  i.e.
+
 ```sh
-$ python3 voting.py 8000
-```
-2. automated mining script
-```sh
-$ python3 mining.py 8000
+$ python3 voting.py 8000& python3 mining.py 8000&
 ```
 Now, you can check mining performance and real-time voting results.
 
