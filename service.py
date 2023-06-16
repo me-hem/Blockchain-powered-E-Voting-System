@@ -24,7 +24,7 @@ class Block:
 
 class Blockchain:
     # difficulty of our PoW algorithm
-    difficulty = 2
+    difficulty = 5
 
     def __init__(self):
         self.unconfirmed_transactions = []
