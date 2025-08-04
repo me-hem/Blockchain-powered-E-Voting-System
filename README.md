@@ -1,114 +1,158 @@
 # Blockchain-Powered E-Voting System
 
-## Outline
-1. Reference Repository
-2. Modification in previously designed E-voting system
-3. Instructions to run application
-4. References
+A secure, transparent, and tamper-proof electronic voting system built using blockchain technology and Python. This system ensures voter anonymity, prevents double voting, and provides immutable vote records through a decentralized blockchain implementation.
 
-### Reference Repository
-This project is based on the E-Voting system developed in (https://github.com/ramesh-adhikari/E-voting-system-using-blockchain-and-python) repository entitled "E-voting-system-using-blockchain-and-python" by Ramesh Adhikari.
+## Features
 
-**Appreciate the significant contributions made by the "E-voting-system-using-blockchain-and-python" repository in advancing my understanding and practical implementation of blockchain technology in the context of e-voting systems.**
+- **Blockchain Security**: Immutable vote storage using SHA-256 hashing and Proof of Work consensus
+- **Voter Privacy**: Anonymized voter IDs using cryptographic hashing
+- **Automated Processing**: Automated voting and mining scripts for efficient operation
+- **Real-time Monitoring**: Dynamic web interface with live updates every 5 seconds
+- **Mining Statistics**: Comprehensive performance metrics and transparency features
+- **Tamper-Proof**: Cryptographic verification ensures data integrity
+- **Decentralized**: Supports multiple blockchain nodes for distributed operation
 
-This application aims to implement blockchain in an e-voting system, enabling voters to cast their votes using their unique voter IDs. The application ensures that each voter can only vote once, and the voted information is stored on the blockchain, making it immutable and permanent. Users interact with the application through a user-friendly web interface.
+## System Architecture
 
-To achieve this, we follow a bottom-up approach, starting with defining the data structure for storing information in the blockchain. Each post in the blockchain consists of three essential elements: voter_id, party, and timestamp. We store this data in JSON format, and a sample post in the blockchain would include the voter ID, the political party chosen, and the timestamp of the vote.
+The system follows a bottom-up blockchain architecture with the following components:
 
-``` "transactions": [
-        {
-          "voter_id": "VOID001",
-          "party": "Democratic Party",
-          "timestamp": 1649571086.02753
-        }
-      ],
+### Data Structure
+Each vote is stored as a transaction in the blockchain with:
+```json
+{
+  "voter_id": "hashed_voter_id",
+  "party": "Selected Political Party", 
+  "timestamp": 1649571086
+}
 ```
 
-To maintain the integrity of the data stored in the blockchain, we employ cryptographic hash functions. We compute the hash of each block, which acts as a digital fingerprint or signature of the data contained within it. This allows us to detect any tampering with the block's data.
+### Core Components
+- **Block**: Contains index, transactions, timestamp, previous hash, and nonce
+- **Blockchain**: Manages the chain of blocks with Proof of Work validation
+- **Mining**: Automated process for adding verified transactions to blocks
+- **Web Interface**: Flask-based frontend for interaction and monitoring
 
-``` def compute_hash(self):
-        """
-        A function that return the hash of the block contents.
-        """
-        block_string = json.dumps(self.__dict__, sort_keys=True)
-        return sha256(block_string.encode()).hexdigest()
+## Prerequisites
+
+- Python 3.7 or higher
+- pip package manager
+- Git
+
+## Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/me-hem/blockchain_powered_e_voting_system
+cd blockchain_powered_e_voting_system
 ```
 
-To create dependency among consecutive blocks and ensure the integrity of the entire chain, we chain the blocks together. Each block contains the hash of the previous block, creating a link between them. The first block in the chain, known as the genesis block, is either generated manually or through a unique logic.
-
-``` class Block:
-    def __init__(self, index, transactions, timestamp, previous_hash, nonce=0):
-        self.index = index
-        self.transactions = transactions
-        self.timestamp = timestamp
-        self.previous_hash = previous_hash
-        self.nonce = nonce
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
 ```
 
-To further secure the blockchain, we implement the Proof of Work (PoW) algorithm. Miners compete to complete transactions and add new blocks to the chain. The algorithm makes the task of calculating the hash difficult and random by adding a constraint. Miners must find a nonce that satisfies the constraint, which serves as proof of the computation performed. The number of zeroes in the constraint determines the difficulty level of the PoW algorithm.
+### 3. Start the Blockchain Node
+```bash
+# For Unix/Linux/Mac
+export FLASK_APP=service.py
+flask run --port 8000
 
-To add a block to the chain, we verify that the data is untampered and that the order of transactions is preserved. The Proof of Work provided must be correct, and the previous_hash field of the block to be added should point to the hash of the latest block in the chain.
-
-![image.png](https://github.com/me-hem/E-voting-system-using-blockchain-and-python/blob/master/screenshots/5.png?raw=true)
-*Figure 1: "Old system"*
-
-
-Finally, we implement mining, which involves putting unconfirmed transactions into blocks and computing the Proof of Work. Once a nonce satisfying the constraint is found, a block is considered mined and can be added to the chain.
-
-### Modification in previously designed E-voting system
-There were several limitations in previously designed E-voting system such as:
-- Manual Voting and Mining Process: Manual voting and mining processes can result in delays and inconsistencies in the voting and mining process, leading to significant differences in the number of transactions per block and overall mining time.
-- Less Functionality in Web Page: The web page of the previous e-voting system lacked advanced functionality. Users had to click buttons to perform all actions, and there was no automatic syncing system.
-- Insecure Voter Information: The previous e-voting system displayed voter identification and voting details in real-time, which compromised voter privacy. There was no mechanism to ensure the anonymity of voters.
-- Lack of Mining Statistics: The previous e-voting system lacked mining statistics, leading to limited transparency and insights into its performance.
-
-We overcame all these limitations by following modifications:
-- Automated Voting and Mining Process: To overcome the limitations of the manual voting and mining process, we implemented two scripts, namely voting.py and mining.py. This automation process achieved better results and ensured timely mining and reduced the differences between the number of transactions in each block.
-- Dynamic web page: We enhanced the functionality of the web page by making it dynamic, where the system syncs automatically every 5 seconds. This feature ensured that all the details, such as the mining statistics and leading party, were updated automatically.
-- Voter Information Security: To enhance voter information security, we added a hashing feature that used SHA 256 to hash the voter IDs. This feature ensured that the voter's identity remained secure and confidential.
-- Mining Statistics: Added mining statistics such as total voting time, total mining time, average mining time per block, average number of transactions per block, and the number of blocks mined.  These statistics get updated in real-time automatically, providing greater transparency and insight into the system's performance.
-
-![image.png](https://github.com/me-hem/research_internship_work_BHU/blob/master/Voting%20system%20using%20Blockchain/Screenshots/mod_vote.png)
-*Figure 2: "Modified System"*
-
-
-### Instructions to run application
-Clone the project,
-```sh
-$ git clone https://github.com/me-hem/blockchain_powered_e_voting_system
+# For Windows
+set FLASK_APP=service.py
+flask run --port 8000
 ```
-Install the dependencies,
-```sh
-$ cd blockchain_powered_e_voting_system
-$ pip install -r requirements.txt
+
+### 4. Launch the Web Application
+Open a new terminal and run:
+```bash
+python3 app.py 5000
 ```
-Start a blockchain node server,
-```sh
-# Windows users can follow this: https://flask.palletsprojects.com/en/1.1.x/cli/#application-discovery
-$ export FLASK_APP=service.py
-$ flask run --port 8000
+
+The application will be available at [http://localhost:5000](http://localhost:5000)
+
+### 5. Start Automated Voting and Mining
+In another terminal, run:
+```bash
+python3 voting.py 8000 & python3 mining.py 8000 &
 ```
-One instance of our blockchain node is now up and running at port 8000.
 
-Run the application on a different terminal session,
-```sh
-$ python3 app.py 5000
+## Usage
+
+### Manual Voting
+1. Access the web interface at `http://localhost:5000`
+2. Submit votes through the user interface
+3. Monitor real-time voting statistics and results
+
+### Automated Simulation
+The system includes automation scripts that simulate:
+- **voting.py**: Generates 10,000 randomized votes with hashed voter IDs
+- **mining.py**: Continuously mines pending transactions into blocks
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/new_transaction` | POST | Submit a new vote transaction |
+| `/chain` | GET | Retrieve the complete blockchain |
+| `/mine` | GET | Mine pending transactions |
+| `/pending_tx` | GET | View unconfirmed transactions |
+| `/register_node` | POST | Add new peer nodes |
+
+
+## System Improvements
+
+This enhanced version addresses several limitations of the original system:
+
+###  What's New
+- **Automated Operations**: Eliminated manual voting/mining bottlenecks
+- **Enhanced Security**: SHA-256 hashing for voter ID anonymization
+- **Real-time Updates**: Dynamic web interface with automatic synchronization  
+- **Performance Metrics**: Comprehensive mining and voting statistics
+
+### Performance Statistics
+The system tracks and displays:
+- Total voting time
+- Total mining time  
+- Average mining time per block
+- Average transactions per block
+- Number of blocks mined
+- Leading party in real-time
+
+## System Flow
+
 ```
-The application should be up and running at [http://localhost:5000](http://localhost:5000).
-
-Now, run automation script simultaneously  i.e.
-
-```sh
-$ python3 voting.py 8000& python3 mining.py 8000&
+Voter Registration → Vote Submission → Transaction Pool → 
+Mining Process → Block Creation → Chain Validation → 
+Result Tabulation → Real-time Display
 ```
-Now, you can check mining performance and real-time voting results.
 
-![image.png](https://github.com/me-hem/research_internship_work_BHU/blob/master/Voting%20system%20using%20Blockchain/Screenshots/flowchart.png)
-*Figure 3: "Implementation of modified E-Voting system"*
+## Security Features
 
-### References
-1. https://www2.deloitte.com/content/dam/Deloitte/uk/Documents/Innovation/deloitte-uk-what-is-blockchain-2016.pdf
-2. https://doi.org/10.6028/NIST.IR.8202
-3. https://github.com/me-hem/E-voting-system-using-blockchain-and-python
-4. https://www.researchgate.net/publication/341498272_A_Conceptual_Secure_Blockchain_Based_Electronic_Voting_System
-5. https://www.researchgate.net/publication/346463547_Understanding_Blockchain_Technology_and_how_to_get_involved
+- **Cryptographic Hashing**: SHA-256 for block integrity and voter anonymization
+- **Proof of Work**: Prevents malicious block creation
+- **Chain Validation**: Ensures blockchain integrity across the network
+- **Immutable Records**: Once recorded, votes cannot be altered or deleted
+- **Decentralized Consensus**: Multiple nodes validate transactions
+
+## Technical Stack
+
+- **Backend**: Python 3.7+, Flask
+- **Blockchain**: Custom implementation with SHA-256 and PoW
+- **Frontend**: HTML, CSS, JavaScript
+- **Networking**: HTTP/JSON API communication
+- **Cryptography**: hashlib (SHA-256)
+
+## Acknowledgments
+
+This project builds upon the foundational work from the [E-voting-system-using-blockchain-and-python](https://github.com/ramesh-adhikari/E-voting-system-using-blockchain-and-python) repository by Ramesh Adhikari. We appreciate the significant contributions that advanced our understanding of blockchain technology in e-voting systems.
+
+## References
+
+1. [Deloitte - What is Blockchain?](https://www2.deloitte.com/content/dam/Deloitte/uk/Documents/Innovation/deloitte-uk-what-is-blockchain-2016.pdf)
+2. [NIST Blockchain Technology Overview](https://doi.org/10.6028/NIST.IR.8202)
+3. [A Conceptual Secure Blockchain Based Electronic Voting System](https://www.researchgate.net/publication/341498272_A_Conceptual_Secure_Blockchain_Based_Electronic_Voting_System)
+4. [Understanding Blockchain Technology](https://www.researchgate.net/publication/346463547_Understanding_Blockchain_Technology_and_how_to_get_involved)
+
+---
+
+**Note**: This system is designed for educational and research purposes. For production use in actual elections, additional security audits, legal compliance, and scalability testing are required.
