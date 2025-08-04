@@ -154,5 +154,3 @@ This project builds upon the foundational work from the [E-voting-system-using-b
 4. [Understanding Blockchain Technology](https://www.researchgate.net/publication/346463547_Understanding_Blockchain_Technology_and_how_to_get_involved)
 
 ---
-
-**Note**: This system is designed for educational and research purposes. For production use in actual elections, additional security audits, legal compliance, and scalability testing are required.
